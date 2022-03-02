@@ -27,7 +27,7 @@ contract MySet is ERC1155 {
     }
 
     receive () external payable {
-        // Deposit ETH sent with transaction
+        // fallback - deposit Ether sent with transaction
         deposit(address(0x1), msg.sender, msg.value);
     }
 
@@ -37,26 +37,26 @@ contract MySet is ERC1155 {
         WrapperStorage.Layout storage l = WrapperStorage.layout();
         require(_recipient != address(0x0), "ERC20Wrapper#deposit: INVALID_RECIPIENT");
 
-        // Internal ID of ERC-20 token deposited
+        // declare ID of deposited ERC20
         uint256 id;
 
-        // Deposit ERC-20 tokens or ETH
+        // deposit the ERC20 or Ether
         if (_token != address(0x1)) {
 
-        // Check if transfer passes
+        // check if transfer passes
         require(msg.value == 0, "ERC20Wrapper#deposit: NON_NULL_MSG_VALUE");
         IERC20(_token).transferFrom(msg.sender, address(this), _value);
           require(checkSuccess(), "ERC20Wrapper#deposit: TRANSFER_FAILED");
 
-        // Load address token ID
+        // load address's ID
         uint256 addressId = l.addressToID[_token];
 
-        // Register ID if not already done
+        // register ID if not already in use
         if (addressId == 0) {
-            l.nTokens += 1;             // Increment number of tokens registered
-            id = l.nTokens;             // id of token is the current # of tokens
-            l.IDtoAddress[id] = _token; // Map id to token address
-            l.addressToID[_token] = id; // Register token
+            l.nTokens += 1;                 // increment number of tokens registered
+            id = l.nTokens;                 // ID of token is the current # of tokens
+            l.IDtoAddress[id] = _token;   // map ID to token address
+            l.addressToID[_token] = id;   // register token
 
         } else {
             id = addressId;
@@ -67,7 +67,7 @@ contract MySet is ERC1155 {
         id = 0x1;
         }
 
-        // Mint meta tokens
+        // mint 1155 tokens
         _mint(_recipient, id, _value, "");
     }
 
@@ -85,10 +85,10 @@ contract MySet is ERC1155 {
     {
         WrapperStorage.Layout storage l = WrapperStorage.layout();
 
-        // Burn meta tokens
+        // burn 1155 tokens
         _burn(_from, _tokenID, _value);
 
-        // Withdraw ERC-20 tokens or ETH
+        // withdraw ERC20 tokens or Ether
         if (_tokenID != 0x1) {
         address token = l.IDtoAddress[_tokenID];
         IERC20(token).transfer(_to, _value);
