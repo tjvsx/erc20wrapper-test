@@ -1934,8 +1934,8 @@
       ]
     },
     "/Users/thomasvanslooten/Projects/diamond-proxy/solidstate-experiments/erc20wrapper-test/contracts/facets/MySet.sol": {
-      "lastModificationDate": 1646209826418,
-      "contentHash": "8af19c56fc7e18b4848b1bb47941a239",
+      "lastModificationDate": 1646211197326,
+      "contentHash": "c29d3df75a7e2dfa3aedb147d62b50ce",
       "sourceName": "contracts/facets/MySet.sol",
       "solcConfig": {
         "version": "0.8.12",

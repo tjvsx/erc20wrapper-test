@@ -8,6 +8,11 @@ import { ERC165Storage } from '@solidstate/contracts/introspection/ERC165Storage
 import { IERC20 } from '@solidstate/contracts/token/ERC20/IERC20.sol';
 import { WrapperStorage } from '../libraries/WrapperStorage.sol';
 
+
+/* 0xsequence's erc20-meta-token 
+(https://github.com/0xsequence/erc20-meta-token/blob/master/src/contracts/wrapper/ERC20Wrapper.sol), 
+adapted to use diamond storage */
+
 contract MySet is ERC1155 {
     using ERC165Storage for ERC165Storage.Layout;
 
